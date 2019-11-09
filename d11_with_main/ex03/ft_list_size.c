@@ -1,0 +1,78 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_list_size.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sxu <marvin@42.fr>                         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/11/06 12:21:41 by sxu               #+#    #+#             */
+/*   Updated: 2018/11/06 12:41:29 by sxu              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_list.h"
+#include <stdlib.h>
+#include <stdio.h> //r
+
+t_list	*ft_create_elem(void	*data)
+{
+	t_list *elem;
+
+	if(!(elem = malloc(sizeof(t_list))))
+		return (NULL);
+	elem->data = data;
+	elem->next = NULL;
+	return (elem);
+}
+
+int	ft_list_size(t_list *begin_list)
+{
+	t_list *temp;
+	int i;
+
+	i = 0;
+	temp = begin_list;
+	if (!temp)
+		return (i);
+	while (temp)
+	{
+		temp = temp->next;
+		i++;
+	}
+	return (i);
+}
+
+
+int main()
+{
+	t_list *null;
+	t_list *head;
+	t_list *mid;
+	t_list *tail;
+
+	int real_data1 = 42;
+	int real_data2 = 54;
+	int real_data3 = 97;
+
+	void *data	= &real_data1;
+	void *data2	= &real_data2;
+	void *data3	= &real_data3;
+
+	null->data = NULL;
+	head = ft_create_elem(data);
+	mid = ft_create_elem(data2);
+	tail = ft_create_elem(data3);
+	head->next = mid;
+	mid->next = tail;
+
+	
+	printf("size = %d\n", ft_list_size(head));
+	printf("header = %d -> ", *((int*)head->data));
+	while (head->next != NULL)
+	{
+		head = head->next;
+		printf("%d", *(int*)head->data);
+		printf(" -> ");
+	}
+	printf("NULL\n");
+}
